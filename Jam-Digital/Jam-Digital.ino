@@ -1,3 +1,4 @@
+#include "src/BigFont.h"
 void init_timer(){
   cli(); // stop interrupts
   TCCR1A = 0; // set entire TCCR1A register to 0
