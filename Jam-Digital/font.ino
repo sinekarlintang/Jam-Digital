@@ -1,4 +1,4 @@
-
+//ini copas dari internet tapi aku ganemu lagi linknya, tar kucari
 
 byte bar1[8] ={B11100,B11110,B11110,B11110,B11110,B11110,B11110,B11100};
 byte bar2[8] ={B00111,B01111,B01111,B01111,B01111,B01111,B01111,B00111};
@@ -128,6 +128,13 @@ void custom9(int col)
   lcd.write(6);  
   lcd.write(1);
 }
+void colon(int col)
+{
+  lcd.setCursor(col, 0);  
+  lcd.write(6); 
+  lcd.setCursor(col, 1); 
+  lcd.write(6);  
+}
 
 void printNumber(int value, int col) 
 {
@@ -151,7 +158,9 @@ void printNumber(int value, int col)
     custom8(col);
   } if (value == 9) {
     custom9(col);
-  }      
+  }     if (value ==11){
+    colon(col);
+  } 
 }  
 void lcdinit()
 {
