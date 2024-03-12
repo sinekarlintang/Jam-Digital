@@ -1,7 +1,11 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
-#include <FreeRTOS.h>
+#include <FreeRTOS.h> // aku coba gapake freertos display lcdnya telat responnya
 #include <task.h>
+#include <queue.h>
+#include <semphr.h>
+
+// library yang perlu didonlot : FreeRTOS by Richard Barry dan LiquidCrystal I2C by Frank de Brabander
 
 LiquidCrystal_I2C lcd(0x27, 20, 4); // Set the LCD address to 0x27 by Teach Me Something
 int jam, menit, detik, i;
@@ -12,8 +16,13 @@ int longPressDuration = 500; // millis
 unsigned long buttonPressTime = 0; // time when button was pressed
 bool btnmode_shpress, btnmode_lgpress, btnplus_press, btnmin_press, alarm_on;
 //     short press       long press           
+volatile bool awal_screen, atur_screen, alarm_screen, stopwatch_screen;
 
-bool awal_screen, atur_screen, alarm_screen, stopwatch_screen;
+// Define semaphore
+SemaphoreHandle_t btnmodeSemaphore;
+
+// Initialize semaphore
+
 
 // ini untuk library lcd
 #if defined(ARDUINO) && ARDUINO >= 100
@@ -23,7 +32,7 @@ bool awal_screen, atur_screen, alarm_screen, stopwatch_screen;
 #endif
 
 // arduino yang aku punya hanya ada arduino due yang pakainya ARM bukan AVR, karena nama registernya beda
-// dan pinnya beda jadi kasi kondisional untuk ngecek apakah core yang dipake AVR atau ARM
+// dan pinnya beda jadi kasi kondisional untuk ngecek apakah core yang dipake AVR atau ARM (abaikan saja bagian ini)
 
 #ifdef __arm__ // Check if compiling for ARM (e.g., Arduino Due)
 
@@ -35,7 +44,7 @@ void arm_timer_function() {
   
   // Configure Timer Counter 0 (TC0) for a 1 Hz frequency
   TC_Configure(TC0, 0, TC_CMR_WAVE | TC_CMR_WAVSEL_UP_RC | TC_CMR_TCCLKS_TIMER_CLOCK4);
-  TC_SetRC(TC0, 0, 656249); // Set the frequency to 1 Hz (16 MHz / 256 / 62500 = 1 Hz)
+  TC_SetRC(TC0, 0, 656249); // = 84000000 / (128 * 1) - 1 (must be <65536)
   TC_Start(TC0, 0); // Start the timer
   
   // Enable Timer Counter 0 (TC0) interrupt on RC compare
@@ -57,11 +66,11 @@ void TC0_Handler() {
     }
   }
 
-  TC_GetStatus(TC0, 0); // Clear TC0 interrupt flag
+  TC_GetStatus(TC0, 0); // Reset TC0 interrupt flag
 }
 
 
-#else // Assume AVR (e.g., Arduino Nano)
+#else // AVR (Arduino Nano)
 #include <avr/io.h>
 void avr_timer_function() {
   cli(); // stop interrupts
@@ -91,6 +100,7 @@ ISR(TIMER1_COMPA_vect){
       }
     }
   }
+  TIFR1 |= (1 << OCF1A);  // reset flag
 }
 #endif
 
@@ -103,37 +113,33 @@ void setup() {
   // cek apakah mau menjalankan timer untuk AVR atau ARM (ini hanya ada karena aku gapunya arduino yang pake AVR (nano, uno atau lainnya))
   #ifdef __arm__
     arm_timer_function();
-    pinMode(4,INPUT); // ini aku coba coba di arduino due pakenya 4
+    pinMode(btnmode,INPUT); // ini aku coba coba di arduino due pakenya 4
   #else
     avr_timer_function();
   #endif
 
   // inisiasi lcd
   lcdinit();
+
   lcd.setCursor(19,i);
   lcd.print("-");
   awal_screen = true;
+  i =0;
+  btnmodeSemaphore = xSemaphoreCreateMutex();
+  //task display prioritasnya harus paling tinggi (untuk sekarang pilih 2) biar ga kepotong task lain
+  //kalau ada task yg ga jalan bisa jadi karena prioritasnya, coba coba ganti
+  xTaskCreate(atur_display, "ATUR", 128, NULL, 0, NULL);
+  // xTaskCreate(alarm_display, "ALARM", 128, NULL, 1, NULL);
+  // xTaskCreate(stopwatch_display, "STOPWATCH", 128, NULL, 1, NULL);
+  xTaskCreate(jam_display, "JAM", 128, NULL, 1, NULL);
 
-  //task display prioritas harus paling tinggi (untuk sekarang pilih 2) biar ga kepotong task lain
-  xTaskCreate(jam_display, "JAM", 128, NULL, 2, NULL);
-  // xTaskCreate(atur_display, "ATUR", 128, NULL, 2, NULL);
-  // xTaskCreate(alarm_display, "ALARM", 128, NULL, 2, NULL);
-  // xTaskCreate(stopwatch_display, "STOPWATCH", 128, NULL, 2, NULL);
 
-  xTaskCreate(mode_selection, "MODE", 128, NULL, 0, NULL);
-  xTaskCreate(modeselect_display, "MODEDISPLAY", 128, NULL, 0, NULL);
+  xTaskCreate(mode_selection, "MODE", 128, NULL, 1, NULL);
   xTaskCreate(button_detect, "BUTTON", 128, NULL, 1, NULL);
   vTaskStartScheduler();
 
 }
 
 void loop() {
-
-
-  // kalau alarm nyala
-  if (alarm_on){
-    lcd.setCursor(15,3);
-    lcd.print("SHUT");
-  }
 
 }

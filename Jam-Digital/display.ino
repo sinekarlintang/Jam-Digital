@@ -15,7 +15,24 @@ void jam_display(void* param) {
   lcd.setCursor(0, 3);
   lcd.print("Alarm ");
   lcd.print("xx : xx");
+  if(btnmode_shpress){
+    lcd.setCursor(19,i);
+    lcd.print(" ");
+    i += 1;
+    if (i>3){ 
+      i=0;
+    }
+    lcd.setCursor(19,i);
+    lcd.print("-");
+    btnmode_shpress = false;
+    }
+    // // kalau alarm nyala
+    // if (alarm_on){
+    //   lcd.setCursor(15,2);
+    //   lcd.print("SHUT");
+    // }
   }
+
 }
 
 void alarm_display(void* param){
@@ -44,7 +61,8 @@ void stopwatch_display(void* param){
 
 void atur_display(void* param){
   while(atur_screen){
-lcd.print("atur");
+  
+  Serial.print("atur");
 
   lcd.setCursor(16,0);
   lcd.print("JAM");
