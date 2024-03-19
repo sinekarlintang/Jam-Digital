@@ -65,6 +65,9 @@ void mode_selection(){
         btnmode_lgpress = false;
         
       } else if(i==3){
+        if (alarm_on){
+          alarm_on = false;
+        }
         btnmode_lgpress = false;
       }      
     }
