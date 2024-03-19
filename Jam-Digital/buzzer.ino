@@ -1,3 +1,3 @@
-void alarm_int() {
+void buzzer_int() {
   alarm_on = !alarm_on;
 }
