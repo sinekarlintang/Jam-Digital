@@ -28,31 +28,31 @@ void mode_selection(){
         btnmode_lgpress = false;
         
       } else if(i==3){
-        if (alarm_on){
           alarm_on = false;
-        }
+                Serial.println("buttonfunct");
+        Serial.println(alarm_on);
         btnmode_lgpress = false;
       }
     }
 
     else if (alarm_screen){
       if (i == 0){
-        if (state_plus == HIGH){
-          jam_alr += 1;
-        }
-        else if (state_min == HIGH){
-          jam_alr -= 1;
-        }
+        // if (state_plus == HIGH){
+        //   jam_alr += 1;
+        // }
+        // else if (state_min == HIGH){
+        //   jam_alr -= 1;
+        // }
       }  
-    }
-    else if (i == 1){
-        if (state_plus == HIGH){
-          menit_alr += 1;
-        }
-        else if (state_min == HIGH){
-          menit_alr -= 1;
-        }
-      }  
+    
+        else if (i == 1){
+        // if (state_plus == HIGH){
+        //   menit_alr += 1;
+        // }
+        // else if (state_min == HIGH){
+        //   menit_alr -= 1;
+        // }
+        
   
       } else if ( i == 2){
         lcd.clear();
@@ -91,20 +91,21 @@ void mode_selection(){
 
     else if (atur_screen){
       if (i == 0){
-          if (state_plus == HIGH){
-            jam += 1;
-          }
-          else if (state_min == HIGH){
-            jam -= 1;
-          }
+          // if (state_plus == HIGH){
+          //   Serial.print("plus");
+          //   jam += 1;
+          // }
+          // else if (state_min == HIGH){
+          //   jam -= 1;
+          // }
 
       } else if (i == 1){
-          if (state_plus == HIGH){
-            menit += 1;
-          }
-          else if (state_min == HIGH){
-            menit -= 1;
-          }
+          // if (state_plus == HIGH){
+          //   menit += 1;
+          // }
+          // else if (state_min == HIGH){
+          //   menit -= 1;
+          // }
         
 
       } else if ( i == 2){
@@ -120,7 +121,8 @@ void mode_selection(){
       }
     }
   }
-  }
+}
+  
 
 
 // fungsi ini terus dijalankan untuk ngecek apakah ada button mode short press atau long press

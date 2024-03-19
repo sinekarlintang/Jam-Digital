@@ -10,9 +10,9 @@ const int buzzer = 7;
 // library yang perlu didonlot :LiquidCrystal I2C by Frank de Brabander
 
 LiquidCrystal_I2C lcd(0x27, 20, 4); // Set the LCD address to 0x27 by Teach Me Something
-int jam, menit, detik, i, jam_stw, menit_stw, detik_stw,jam_alr, menit_alr, detik_alr;
+int jam=23, menit=59, detik, i, jam_stw, menit_stw, detik_stw,jam_alr=23, menit_alr=59, detik_alr;
 
-int buttonState = 0;        // current state of the button
+int buttonState = 0, state_plus,state_min;        // current state of the button
 int lastButtonState = 0;    // previous state of the button
 int longPressDuration = 500; // millis
 unsigned long buttonPressTime = 0; // time when button was pressed
@@ -136,8 +136,8 @@ void setup() {
 }
 
 void loop() {
-  state_plus = digitalRead(btnplus_press);
-  state_min = digitalRead(btnmin_press);
+  state_plus = digitalRead(btnplus);
+  state_min = digitalRead(btnmin);
   time();  // terus jalankan jam
   if(start == true){ // jalankan stopwatch kalau uda pencet start saja
   stopwatch();
@@ -155,9 +155,12 @@ void loop() {
   } else if(stopwatch_screen){
     stopwatch_display();
   }
-  // if ((jam == jam_alr) & (menit == menit_alr)){
-  //   alarm_on = true;
-  //   tone(buzzer, 1000);
-  //   delay(10000);
-  // }
+  if ((jam == jam_alr) & (menit == menit_alr)& (detik == 1)){
+    alarm_on = true;
+  }
+  if(alarm_on){tone(buzzer, 100,10000);}
+  else if(!alarm_on){noTone(buzzer);}
+        Serial.println("mainfunct");
+        Serial.println(alarm_on);
+
 }

@@ -16,12 +16,19 @@ void jam_display() {
   lcd.setCursor(15, 0);
   lcd.print("ATUR");
   lcd.setCursor(0, 3);
+
   lcd.print("alarm ");
-  lcd.print("xx : xx");
+  lcd.print((jam_alr/10)%10);
+  lcd.print(jam_alr%10);
+  lcd.print(":");
+  lcd.print((menit_alr/10)%10);
+  lcd.print(menit_alr%10);
+
   lcd.setCursor(15,3);
   lcd.print("SHUT");
   if(btnmode_shpress){
-    Serial.print("short");
+    // Serial.print("short");
+    
     lcd.setCursor(19,i);
     lcd.print(" ");
     i += 1;
@@ -52,8 +59,14 @@ void alarm_display(){
     lcd.setCursor(16, 2);
     lcd.print("OKE");
     lcd.setCursor(0, 3);
-    lcd.print("alarm ");
-    lcd.print("xx : xx");
+
+  lcd.print("alarm ");
+  lcd.print((jam_alr/10)%10);
+  lcd.print(jam_alr%10);
+  lcd.print(":");
+  lcd.print((menit_alr/10)%10);
+  lcd.print(menit_alr%10);
+
   if(btnmode_shpress){
     lcd.setCursor(19,i);
     lcd.print(" ");
@@ -65,6 +78,30 @@ void alarm_display(){
     lcd.print("-");
     btnmode_shpress = false;
   }
+  if (i == 0){
+    if (state_plus == HIGH){
+      // Serial.print("plus");
+      jam_alr += 1;
+      if(jam_alr >23){jam_alr=0;}
+    }
+    else if (state_min == HIGH){
+      jam_alr -= 1;
+      
+      if(jam_alr <0){jam_alr=23;}
+    }
+
+} else if (i == 1){
+    if (state_plus == HIGH){
+      menit_alr += 1;
+            if(menit_alr >59){menit_alr=0;}
+    }
+    else if (state_min == HIGH){
+      menit_alr -= 1;
+            if(menit_alr <0){menit_alr=59;}
+    }
+  
+
+}
 }
 
 void stopwatch_display(){
@@ -117,8 +154,14 @@ void atur_display(){
   lcd.setCursor(16, 2);
   lcd.print("OKE");
   lcd.setCursor(0, 3);
-  lcd.print("alarm ");
-  lcd.print("xx : xx");
+
+    lcd.print("alarm ");
+  lcd.print((jam_alr/10)%10);
+  lcd.print(jam_alr%10);
+  lcd.print(":");
+  lcd.print((menit_alr/10)%10);
+  lcd.print(menit_alr%10);
+
   if(btnmode_shpress){
     lcd.setCursor(19,i);
     lcd.print(" ");
@@ -129,6 +172,30 @@ void atur_display(){
     lcd.setCursor(19,i);
     lcd.print("-");
     btnmode_shpress = false;
+  }
+  if (i == 0){
+    if (state_plus == HIGH){
+      // Serial.print("plus");
+      jam += 1;
+      if(jam >23){jam=0;}
+    }
+    else if (state_min == HIGH){
+      jam -= 1;
+      if(jam <0){jam=23;}
+    }
+
+} else if (i == 1){
+    if (state_plus == HIGH){
+      menit += 1;
+      if(menit >59){menit=0;}
+    }
+    else if (state_min == HIGH){
+      menit -= 1;
+      
+      if(menit <0){menit=59;}
+    }
+        
+
   }
 }
 
