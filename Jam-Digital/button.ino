@@ -1,3 +1,4 @@
+
 // button buat menu (fungsi ini ketrigger kalau long press)
 void mode_selection(){
   if (btnmode_lgpress) {
@@ -36,10 +37,12 @@ void mode_selection(){
 
     else if (alarm_screen){
       if (i == 0){
-        // ***
-        // kode plus/minus atur jam alarm
-        // if (xxx) {jam_alr += 1; xxx;}
-        // else if(xxx) {jam_alr -= 1; xxx;}
+        if (button1_state == HIGH){
+          jam_alr += 1;
+        }
+        else if (button2_state == HIGH){
+          jam_alr -= 1;
+        }
 
       } else if (i == 1){
         // ***
