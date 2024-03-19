@@ -28,28 +28,34 @@ void mode_selection(){
         btnmode_lgpress = false;
         
       } else if(i==3){
-        // ***
-        // matiin alarm kalau bunyi
-
+          if (alarm_on == true){
+            if (btnmode_lgpress == true){
+              alarm_on == false;
+            } 
         btnmode_lgpress = false;
       }
     }
 
     else if (alarm_screen){
       if (i == 0){
-        if (button1_state == HIGH){
-          jam_alr += 1;
+        if (btnmode_shpress == true){
+          if (btnplus_press == true){
+            jam_alr += 1;
+          }
+          else if (btnmin_press == true){
+            jam_alr -= 1;
+          }
+        }  
+      }
+      else if (i == 1){
+        if (btnmode_shpress == true){
+          if (btnplus_press == true){
+            menit_alr += 1;
+          }
+          else if (btnmin_press == true){
+            menit_alr -= 1;
+          }
         }
-        else if (button2_state == HIGH){
-          jam_alr -= 1;
-        }
-
-      } else if (i == 1){
-        // ***
-        // kode plus/minus atur menit alarm
-        // if (xxx) {menit_alr += 1; xxx;}
-        // else if(xxx) {menit_alr -= 1; xxx;}
-
       } else if ( i == 2){
         lcd.clear();
         awal_screen = true;
@@ -87,16 +93,24 @@ void mode_selection(){
 
     else if (atur_screen){
       if (i == 0){
-        // ***
-        // kode plus/minus atur jam
-        // if (xxx) {jam += 1; xxx;}
-        // else if(xxx) {jam -= 1; xxx;}
+        if (btnmode_shpress == true){
+          if (btnplus_press == true){
+            jam_alr += 1;
+          }
+          else if (btnmin_press == true){
+            jam_alr -= 1;
+          }
+        }
 
       } else if (i == 1){
-        // ***
-        // kode plus/minus atur menit
-        // if (xxx) {menit += 1; xxx;}
-        // else if(xxx) {menit -= 1; xxx;}
+        if (btnmode_shpress == true){
+          if (btnplus_press == true){
+            menit_alr += 1;
+          }
+          else if (btnmin_press == true){
+            menit_alr -= 1;
+          }
+        }
 
       } else if ( i == 2){
         lcd.clear();
@@ -139,7 +153,3 @@ void button_detect(){
   }
   lastButtonState = buttonState; // Update last button state
 }
-
-
-// button buat plus minus atur jam/alarm
-// ***
