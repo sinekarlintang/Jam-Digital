@@ -144,7 +144,7 @@ void loop() {
   mode_selection(); // untuk pilih mode
 
   // display
-  if(awal_screen){
+  if (awal_screen){
     jam_display();
   } if ((jam == jam_alr) & (menit == menit_alr)){
     alarm_on = true;
