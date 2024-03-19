@@ -121,6 +121,7 @@ void setup() {
     avr_timer_function();
     pinMode(btnmode, INPUT);
     pinMode(alarm_on, OUTPUT);
+    attachInterrupt(digitalPinToInterrupt(btnmode), alarm_int, HIGH);
   #endif
   // inisiasi lcd
   lcdinit();
