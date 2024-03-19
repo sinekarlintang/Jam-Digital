@@ -116,9 +116,11 @@ void setup() {
   // cek apakah mau menjalankan timer untuk AVR atau ARM (ini hanya ada karena aku gapunya arduino yang pake AVR (nano, uno atau lainnya))
   #ifdef __arm__
     arm_timer_function();
-    pinMode(btnmode,INPUT); // ini aku coba coba di arduino due pakenya 4
+    pinMode(btnmode, INPUT); // ini aku coba coba di arduino due pakenya 4
   #else
     avr_timer_function();
+    pinMode(btnmode, INPUT);
+    pinMode(alarm_on, OUTPUT);
   #endif
   // inisiasi lcd
   lcdinit();
