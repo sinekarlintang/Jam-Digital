@@ -37,24 +37,23 @@ void mode_selection(){
 
     else if (alarm_screen){
       if (i == 0){
-        if (btnmode_shpress == true){
-          if (btnplus_press == true){
-            jam_alr += 1;
-          }
-          else if (btnmin_press == true){
-            jam_alr -= 1;
-          }
-        }  
-      }
-      else if (i == 1){
-        if (btnmode_shpress == true){
-          if (btnplus_press == true){
-            menit_alr += 1;
-          }
-          else if (btnmin_press == true){
-            menit_alr -= 1;
-          }
+        if (state_plus == HIGH){
+          jam_alr += 1;
         }
+        else if (state_min == ){
+          jam_alr -= 1;
+        }
+      }  
+    }
+    else if (i == 1){
+        if (state_plus == HIGH){
+          menit_alr += 1;
+        }
+        else if (state_min == ){
+          menit_alr -= 1;
+        }
+      }  
+  
       } else if ( i == 2){
         lcd.clear();
         awal_screen = true;
@@ -92,25 +91,19 @@ void mode_selection(){
 
     else if (atur_screen){
       if (i == 0){
-          if (btnplus_press == true){
+          if (state_plus == HIGH){
             jam += 1;
-            btnplus_press = false;
           }
-          else if (btnmin_press == true){
+          else if (state_min == HIGH){
             jam -= 1;
-            btnmin_press =false;
           }
-        
 
       } else if (i == 1){
-          if (btnplus_press == true){
+          if (state_plus == HIGH){
             menit += 1;
-            
-            btnplus_press = false;
           }
-          else if (btnmin_press == true){
+          else if (state_min == HIGH){
             menit -= 1;
-            btnmin_press =false;
           }
         
 
