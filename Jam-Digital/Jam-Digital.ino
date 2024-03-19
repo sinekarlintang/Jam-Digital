@@ -146,11 +146,6 @@ void loop() {
   // display
   if (awal_screen){
     jam_display();
-  } if ((jam == jam_alr) & (menit == menit_alr)){
-    alarm_on = true;
-  } if (alarm_on == true) {
-    tone(buzzer, 1000);
-    delay(10000);
   } else if(atur_screen){
     atur_display();
   } else if(alarm_screen){
@@ -158,4 +153,8 @@ void loop() {
   } else if(stopwatch_screen){
     stopwatch_display();
   }
+  if ((jam == jam_alr) & (menit == menit_alr)){
+    alarm_on = true;
+    tone(buzzer, 1000);
+    delay(10000);
 }
