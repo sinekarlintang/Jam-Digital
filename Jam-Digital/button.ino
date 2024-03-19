@@ -28,10 +28,9 @@ void mode_selection(){
         btnmode_lgpress = false;
         
       } else if(i==3){
-          if (alarm_on == true){
-            if (btnmode_lgpress == true){
-              alarm_on == false;
-            } 
+        if (alarm_on){
+          alarm_on = false;
+        }
         btnmode_lgpress = false;
       }
     }
@@ -65,9 +64,6 @@ void mode_selection(){
         btnmode_lgpress = false;
         
       } else if(i==3){
-        if (alarm_on){
-          alarm_on = false;
-        }
         btnmode_lgpress = false;
       }      
     }
@@ -96,24 +92,27 @@ void mode_selection(){
 
     else if (atur_screen){
       if (i == 0){
-        if (btnmode_shpress == true){
           if (btnplus_press == true){
             jam += 1;
+            btnplus_press = false;
           }
           else if (btnmin_press == true){
             jam -= 1;
+            btnmin_press =false;
           }
-        }
+        
 
       } else if (i == 1){
-        if (btnmode_shpress == true){
           if (btnplus_press == true){
             menit += 1;
+            
+            btnplus_press = false;
           }
           else if (btnmin_press == true){
             menit -= 1;
+            btnmin_press =false;
           }
-        }
+        
 
       } else if ( i == 2){
         lcd.clear();
@@ -129,7 +128,7 @@ void mode_selection(){
     }
   }
   }
-}
+
 
 // fungsi ini terus dijalankan untuk ngecek apakah ada button mode short press atau long press
 void button_detect(){

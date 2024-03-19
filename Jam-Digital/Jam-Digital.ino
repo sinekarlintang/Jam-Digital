@@ -142,7 +142,7 @@ void loop() {
   }
   button_detect(); //terus jalankan deteksi short/long press button
   mode_selection(); // untuk pilih mode
-
+// buzzer();
   // display
   if (awal_screen){
     jam_display();
@@ -153,8 +153,9 @@ void loop() {
   } else if(stopwatch_screen){
     stopwatch_display();
   }
-  if ((jam == jam_alr) & (menit == menit_alr)){
-    alarm_on = true;
-    tone(buzzer, 1000);
-    delay(10000);
+  // if ((jam == jam_alr) & (menit == menit_alr)){
+  //   alarm_on = true;
+  //   tone(buzzer, 1000);
+  //   delay(10000);
+  // }
 }

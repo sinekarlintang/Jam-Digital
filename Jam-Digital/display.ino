@@ -21,6 +21,7 @@ void jam_display() {
   lcd.setCursor(15,3);
   lcd.print("SHUT");
   if(btnmode_shpress){
+    Serial.print("short");
     lcd.setCursor(19,i);
     lcd.print(" ");
     i += 1;
