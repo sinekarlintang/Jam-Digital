@@ -127,7 +127,6 @@ void setup() {
     pinMode(btnplus, INPUT);
     pinMode(btnmin, INPUT);
     pinMode(alarm_on, OUTPUT);
-    attachInterrupt(digitalPinToInterrupt(btnmin), buzzer_int, HIGH);
   #endif
   // inisiasi lcd
   lcdinit();
