@@ -141,11 +141,14 @@ void loop() {
   // display
   if(awal_screen){
     jam_display();
-  }else if(atur_screen){
+  } if (alarm_on == true) {
+    tone(buzzer, 1000);
+    delay(10000);
+  } else if(atur_screen){
     atur_display();
-  }else if(alarm_screen){
+  } else if(alarm_screen){
     alarm_display();
-  }else if(stopwatch_screen){
+  } else if(stopwatch_screen){
     stopwatch_display();
   }
 }
