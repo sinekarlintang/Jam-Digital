@@ -18,6 +18,8 @@ void jam_display() {
   lcd.setCursor(0, 3);
   lcd.print("alarm ");
   lcd.print("xx : xx");
+  lcd.setCursor(16,3);
+  lcd.print("SHUT");
   if(btnmode_shpress){
     lcd.setCursor(19,i);
     lcd.print(" ");
@@ -29,13 +31,6 @@ void jam_display() {
     lcd.print("-");
     btnmode_shpress = false;
   }
-    // ***
-    // // kalau alarm nyala
-    // if (alarm_on){
-    //   lcd.setCursor(15,2);
-    //   lcd.print("SHUT");
-    //   xxx;
-    // }
 }
 
 void alarm_display(){
