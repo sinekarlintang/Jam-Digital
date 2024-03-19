@@ -40,7 +40,7 @@ void mode_selection(){
         if (state_plus == HIGH){
           jam_alr += 1;
         }
-        else if (state_min == ){
+        else if (state_min == HIGH){
           jam_alr -= 1;
         }
       }  
