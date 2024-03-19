@@ -10,8 +10,8 @@ int buttonState = 0;        // current state of the button
 int lastButtonState = 0;    // previous state of the button
 int longPressDuration = 500; // millis
 unsigned long buttonPressTime = 0; // time when button was pressed
-volatile bool btnmode_shpress, btnmode_lgpress, btnplus_press, btnmin_press, alarm_on;
-//              short press       long press           
+volatile bool btnmode_shpress, btnmode_lgpress, btnplus_press = digitalRead(btnmode), btnmin_press = digitalRead(btnmode), alarm_on;
+//              short press       long press
 volatile bool awal_screen, atur_screen, alarm_screen, stopwatch_screen, flag_second,flag_stw, start;
 
 // ini untuk library lcd
