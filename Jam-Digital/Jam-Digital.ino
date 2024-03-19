@@ -51,6 +51,7 @@ void TC0_Handler() {
 
 #else // AVR (Arduino Nano)
 #include <avr/io.h>
+const int btnmode = 3;
 void avr_timer_function() {
   cli(); // stop interrupts
   TCCR1A = 0; // set entire TCCR1A register to 0
