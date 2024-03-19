@@ -1,6 +1,11 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
+// inisialisasi pin
+const int btnmode = 3;
+const int btnmin_press = 4;
+const int btnplus_press = 5;
+
 // library yang perlu didonlot : FreeRTOS by Richard Barry dan LiquidCrystal I2C by Frank de Brabander
 
 LiquidCrystal_I2C lcd(0x27, 20, 4); // Set the LCD address to 0x27 by Teach Me Something
@@ -26,7 +31,6 @@ volatile bool awal_screen, atur_screen, alarm_screen, stopwatch_screen, flag_sec
 
 #ifdef __arm__ // Check if compiling for ARM (e.g., Arduino Due)
 
-const int btnmode = 4;
 #include <sam.h>
 void arm_timer_function() {
   pmc_set_writeprotect(false); // Disable write protection for PMC (Power Management Controller)
@@ -51,7 +55,6 @@ void TC0_Handler() {
 
 #else // AVR (Arduino Nano)
 #include <avr/io.h>
-const int btnmode = 3;
 void avr_timer_function() {
   cli(); // stop interrupts
   TCCR1A = 0; // set entire TCCR1A register to 0
