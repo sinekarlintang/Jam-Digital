@@ -95,20 +95,20 @@ void mode_selection(){
       if (i == 0){
         if (btnmode_shpress == true){
           if (btnplus_press == true){
-            jam_alr += 1;
+            jam += 1;
           }
           else if (btnmin_press == true){
-            jam_alr -= 1;
+            jam -= 1;
           }
         }
 
       } else if (i == 1){
         if (btnmode_shpress == true){
           if (btnplus_press == true){
-            menit_alr += 1;
+            menit += 1;
           }
           else if (btnmin_press == true){
-            menit_alr -= 1;
+            menit -= 1;
           }
         }
 
