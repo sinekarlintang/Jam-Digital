@@ -136,6 +136,8 @@ void setup() {
 }
 
 void loop() {
+  state_plus = digitalRead(btnplus_press);
+  state_min = digitalRead(btnmin_press);
   time();  // terus jalankan jam
   if(start == true){ // jalankan stopwatch kalau uda pencet start saja
   stopwatch();
