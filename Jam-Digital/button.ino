@@ -125,8 +125,8 @@ void mode_selection(){
       }
     }
   }
-
   }
+}
 
 // fungsi ini terus dijalankan untuk ngecek apakah ada button mode short press atau long press
 void button_detect(){

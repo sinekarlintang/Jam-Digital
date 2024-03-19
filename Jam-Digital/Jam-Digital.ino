@@ -3,10 +3,11 @@
 
 // inisialisasi pin
 const int btnmode = 3;
-const int btnmin_press = 4;
-const int btnplus_press = 5;
+const int btnmin = 4;
+const int btnplus = 5;
+const int buzzer = 7;
 
-// library yang perlu didonlot : FreeRTOS by Richard Barry dan LiquidCrystal I2C by Frank de Brabander
+// library yang perlu didonlot :LiquidCrystal I2C by Frank de Brabander
 
 LiquidCrystal_I2C lcd(0x27, 20, 4); // Set the LCD address to 0x27 by Teach Me Something
 int jam, menit, detik, i, jam_stw, menit_stw, detik_stw,jam_alr, menit_alr, detik_alr;
@@ -123,8 +124,10 @@ void setup() {
   #else
     avr_timer_function();
     pinMode(btnmode, INPUT);
+    pinMode(btnplus, INPUT);
+    pinMode(btnmin, INPUT);
     pinMode(alarm_on, OUTPUT);
-    attachInterrupt(digitalPinToInterrupt(btnmode), alarm_int, HIGH);
+    attachInterrupt(digitalPinToInterrupt(btnmin), buzzer_int, HIGH);
   #endif
   // inisiasi lcd
   lcdinit();
