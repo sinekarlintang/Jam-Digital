@@ -5,12 +5,12 @@
 const int btnmode = 3;
 const int btnmin = 4;
 const int btnplus = 5;
-const int buzzer = 7;
+#define buzzer A3
 
 // library yang perlu didonlot :LiquidCrystal I2C by Frank de Brabander
 
 LiquidCrystal_I2C lcd(0x27, 20, 4); // Set the LCD address to 0x27 by Teach Me Something
-int jam=23, menit=59, detik, i, jam_stw, menit_stw, detik_stw,jam_alr=23, menit_alr=59, detik_alr;
+int jam=0, menit=0, detik, i, jam_stw, menit_stw, detik_stw,jam_alr=23, menit_alr=59, detik_alr;
 
 int buttonState = 0, state_plus,state_min;        // current state of the button
 int lastButtonState = 0;    // previous state of the button
@@ -127,8 +127,10 @@ void setup() {
     pinMode(btnplus, INPUT);
     pinMode(btnmin, INPUT);
     pinMode(alarm_on, OUTPUT);
+    pinMode(buzzer,OUTPUT);
   #endif
   // inisiasi lcd
+  analogWrite(buzzer,255);
   lcdinit();
   lcd.setCursor(19,i);
   lcd.print("-");
@@ -144,10 +146,11 @@ void loop() {
   }
   button_detect(); //terus jalankan deteksi short/long press button
   mode_selection(); // untuk pilih mode
-// buzzer();
-  // display
+
   if (awal_screen){
     jam_display();
+
+
   } else if(atur_screen){
     atur_display();
   } else if(alarm_screen){
@@ -155,12 +158,14 @@ void loop() {
   } else if(stopwatch_screen){
     stopwatch_display();
   }
-  if ((jam == jam_alr) & (menit == menit_alr)& (detik == 1)){
-    alarm_on = true;
-  }
-  if(alarm_on){tone(buzzer, 100,10000);}
-  else if(!alarm_on){noTone(buzzer);}
-        Serial.println("mainfunct");
-        Serial.println(alarm_on);
 
+    if ((jam == jam_alr) && (menit == menit_alr) && (detik == 0)){
+      alarm_on = true;
+    }
+    if(alarm_on){
+      analogWrite(buzzer, 0);
+    }
+    if(!alarm_on){
+      analogWrite(buzzer,255);
+    }
 }

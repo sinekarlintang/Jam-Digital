@@ -146,7 +146,7 @@ void button_detect(){
          btnmode_lgpress = true;
       }
     }
-    delay(50); // Debounce delay (optional)
+    delay(100); // Debounce delay (optional)
   }
   lastButtonState = buttonState; // Update last button state
 }
